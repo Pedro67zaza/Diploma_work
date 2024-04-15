@@ -1,0 +1,145 @@
+/*
+		NAME: AFIZUDIN FIRDAUS BIN ZAFFRI
+		ID NO: AM2311015166
+		DATE:16/4/2024
+		PROGRAM PURPOSE: TO RECORD INFORMATION, CALCULATE AND DISPLAY OUTPUT REGARDING THE SALES OF MOTORCYCLES
+*/
+
+//Preprocessor directive
+#include <iostream>
+#include <iomanip>
+#include <cctype>
+using namespace std;
+//Declaration of constants and variables
+const float TAX = 0.06, INTEREST = 0.03;
+char category;
+int model, loan_choice;
+string motor_category, motor_model;
+double pricePerUnit, total_price, monthly_payment, final_payment;
+//function prototypes
+char record_Choice();
+void displayDetails();
+void calculate(double pricePerUnit, int loan_choice);
+//main function 
+int main(){
+	//prompt the user for the category
+	cout << "Please Select one of the categories: " << endl;
+	cout << "Standard Bikes (B) " << endl;
+	cout << "Scooters (S) " << endl;
+	cout << "Superbikes (P) " << endl;
+	cin >> category;
+	
+	category = toupper(category);//make sure the input is uppercase
+	
+	switch(category)//switch statement so the program can behave accordingly 
+	{
+		case 'B':
+			cout << "Please Select one of the models: " << endl;//prompt the user for the model
+			cout << "(1) Kawasaki Z650, (2) Royal Enfield INT 650" << endl;
+			cin >> model;
+			record_Choice(); //function call
+			if (model == 1)
+			{
+				motor_category = "Standard Bikes";
+				motor_model = "Kawasaki Z650";
+				pricePerUnit = 3666;
+			
+				calculate(pricePerUnit, loan_choice);//function call
+				displayDetails();//function call
+			}
+			else if (model == 2)
+			{
+				motor_category = "Standard Bikes";
+				motor_model = "Royal Enfield INT 650";
+				pricePerUnit = 6799;
+				
+				calculate(pricePerUnit, loan_choice);//function call
+				displayDetails();//function call
+			}
+			else
+				cout << "Invalid Input! Please enter 1 or 2." << endl;
+			break;
+		case 'S':
+			cout << "Please Select one of the models: " << endl;//prompt the user for the model
+			cout << "(!) Suzuki Burgman 400, (2) Yamaha Zuma" << endl;
+			cin >> model;
+			record_Choice();//function call
+			if (model == 1)
+			{
+				motor_category = "Scooters";
+				motor_model = "Suzuki Burgman 400";
+				pricePerUnit = 6199;
+				
+				calculate(pricePerUnit, loan_choice);//function call
+				displayDetails();//function call
+			}
+			else if (model == 2)
+			{
+				motor_category = "Scooters";
+				motor_model = "Yamaha Zuma";
+				pricePerUnit = 3399;
+				
+				calculate(pricePerUnit, loan_choice);//function call
+				displayDetails();//function call
+			}
+			else
+				cout << "Invalid Input! Please enter 1 or 2." << endl;
+			break;
+		case 'P':
+			cout << "Please Select one of the models: " << endl;//prompt the user for the model
+			cout << "(1) Ducati 848 EVO, (2) Ducati Super Sport S" << endl;
+			cin >> model;
+			record_Choice(); //function call
+			if (model == 1)
+			{
+				motor_category = "Superbikes";
+				motor_model = "Ducati 848 EVO";
+				pricePerUnit = 10995;
+				
+				calculate(pricePerUnit, loan_choice);//function call
+				displayDetails();//function call
+			}
+			else if (model == 2)
+			{
+				motor_category = "Superbikes";
+				motor_model = "Ducati Super Sport S";
+				pricePerUnit = 10795;
+				
+				calculate(pricePerUnit, loan_choice);//function call
+				displayDetails();//function call
+			}
+			else
+				cout << "Invalid Input! Please enter 1 or 2." << endl;
+			break;
+		default:
+			cout << "Invalid code! Please enter either B, S, or P. " << endl;
+			break;
+	}
+	return 0;//return statement
+}
+//prompt the user for the durationn of loan
+char record_Choice() {
+	cout << "Please Select one of the following: " << endl;
+	cout << "(5) years loan or (9) years loan" << endl;
+	cin >> loan_choice;
+	
+	return loan_choice;
+}
+//display the necessary information
+void displayDetails() {
+	cout << "=======================================" << endl;
+	cout << "Motorcycle category: " << motor_category << endl;
+	cout << "Motorcycle Model: " << motor_model << endl;
+	cout << "Price per Unit (RM): " << fixed << setprecision(2) << pricePerUnit << endl;
+	cout << "Price (+ 6% tax) (RM): " << fixed << setprecision(2) << total_price << endl;
+	cout << "Loan duration (years): " << loan_choice << endl;
+	cout << "Interest rates (3% yearly) (RM): " << fixed << setprecision(2) << (total_price * INTEREST) << endl;
+	cout << "Monthly payment (RM): " << fixed << setprecision(2) << final_payment << endl;
+	cout << "=======================================" << endl;
+}
+//calculate the costs
+void calculate(double pricePerUnit, int loan_choice) {
+	total_price = pricePerUnit + (pricePerUnit * TAX);
+	monthly_payment = ((total_price/loan_choice) / 12);
+	final_payment = monthly_payment + ((total_price * INTEREST) / 12);
+}
