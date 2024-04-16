@@ -1,0 +1,140 @@
+/*
+	NAME: AFIZUDIN FIRDAUS BIN ZAFFRI
+	ID: AM2311015166
+	DATE: 16/4/24
+	PROGRAM PURPOSE: TO PROMPT THE USER FOR INFORMATION REGARDING DIFFERENT SERVICES, CALCULATE THE COSTS, AND DISPLAY THE NECESSARY INFO
+*/
+//Preprocessor directive
+#include <iostream>
+#include <math.h>
+#include <iomanip>
+#include <limits>
+using namespace std;
+//Declaration of variables, constants, and an array
+int package_code, count;
+const double TWO_SUB = 50, THREE_SUB = 80, FOUR_SUB = 100, NOTES = 50, DISCOUNT = 0.05;
+double total_discount, payment_value;
+string name, address, tel_no, choice_name, name_sub[4];
+char choice;
+//function prototypes
+void askNameSubject(int package_code);
+void displayNameSubject(const string name_sub[]);
+void displayinfo();
+//main function
+int main() 
+{	//prompt the user for the name, address, tel no, choice of payment
+	cout << "*****SHI Tuition Centre*****" << endl;
+	cout << "Enter the name: " << endl;
+	getline(cin, name);
+	cout << "State the address: " << endl;
+	getline(cin, address);
+	cout << "Enter the telephone number: " << endl;
+	getline(cin, tel_no);
+	cout << "Press Y for yearly payment, Press M for monthly payment: ";
+	cin >> choice;
+		
+	choice = toupper(choice);//make sure the input is uppercase
+	
+	if(choice == 'Y')
+	{	//prompt the user for the package code
+		choice_name = "Yearly";
+		cout << "Press 1 for two subjects, Press 2 for three subjects, Press 3 for four subjects: " << endl;
+		cin >> package_code;
+		
+		askNameSubject(package_code);//function call
+		
+		switch(package_code)//calculate the costs
+		{
+			case 1:
+				total_discount = (TWO_SUB + NOTES) * DISCOUNT;
+				payment_value = (TWO_SUB + NOTES - total_discount);
+				break;
+			case 2:
+				total_discount = (THREE_SUB + NOTES) * DISCOUNT;
+				payment_value = (THREE_SUB + NOTES - total_discount);
+				break;
+			case 3:
+				total_discount = (FOUR_SUB + NOTES) * DISCOUNT;
+				payment_value = (FOUR_SUB + NOTES - total_discount);
+				break;
+			default:
+				cout << "Invalid package code." << endl;
+				break;
+		}
+		displayinfo();//function call
+		displayNameSubject(name_sub);
+	
+	}
+	else if(choice == 'M')
+	{	//prompt the user for the package code
+		choice_name = "Monthly";
+		cout << "Press 1 for two subjects, Press 2 for three subjects, Press 3 for four subjects: " << endl;
+		cin >> package_code;
+		
+		askNameSubject(package_code);//function call
+		
+		switch(package_code)//calculate the costs
+		{
+			case 1:
+				payment_value = (TWO_SUB + NOTES);
+				break;
+			case 2:
+				payment_value = (THREE_SUB + NOTES);
+				break;
+			case 3:
+				payment_value = (FOUR_SUB + NOTES);
+				break;
+			default:
+				cout << "Invalid package code." << endl;
+				break;
+		}
+		displayinfo();//function call
+		displayNameSubject(name_sub);
+	}
+	else
+		cout << "Invalid Input." << endl;
+		
+	return 0;//return statement
+}
+//prompt the user for the name of the subjects
+void askNameSubject(int package_code) {
+    if(package_code == 1)
+        count = 1;
+    else if (package_code == 2)
+        count = 2;
+    else
+        count = 3;
+
+    cout << "Enter the name of the subjects: " << endl;
+    for(int i = 0; i <= count; i++) 
+	{
+        cout << "Subject " << (i + 1) << ": ";
+        getline(cin, name_sub[i]);
+        cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');//clear input buffer
+    }
+}
+//display the name of the subjects
+void displayNameSubject(const string name_sub[]) {
+	if(package_code == 1)
+        count = 1;
+    else if (package_code == 2)
+        count = 2;
+    else
+        count = 3;
+        
+    for(int i = 0; i <= count; i++) {
+        cout << "Subject: " << name_sub[i] << endl;
+    }
+    cout << "****************************" << endl;
+}
+//display the necessary info
+void displayinfo()
+{
+	cout << "*****SHI Tuition Centre*****" << endl;
+	cout << "Name:" << name << endl;
+	cout << "Address:" << address << endl;
+	cout << "Tel no:" << tel_no << endl;
+	cout << "Payment:" << choice_name << endl;
+	cout << "Package:" << package_code << endl;
+	cout << "Total payment:RM " << fixed << setprecision(2) << payment_value << endl;
+}
