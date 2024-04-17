@@ -1,0 +1,111 @@
+/*
+	PROGRAMMER: AFIZUDIN FIRDAUS BIN ZAFFRI
+	ID: AM2311015166
+	DATE: 17/4/2024
+	PROGRAM PURPOSE: TO RECORD, CALCULATE AND DISPLAY THE SALES FOR THE SALOON
+*/
+//preprocessor directive
+#include <iostream>
+#include <cctype>
+#include <iomanip>
+using namespace std;
+//declaration of variables and constants
+char typeCode;
+string type, menu;
+int menuCode, amount = 10, numberKid = 0, numberWomen = 0, number = 1;
+double price, netPrice, totalDiscount, totalSalesKid, totalSalesWomen;
+const float DISCOUNTKID = 0.05, DISCOUNTWOMEN = 0.10;
+//function prototype
+void displayDetail();
+//main function
+int main() {
+	//for loop for 10 customers
+	for(int i = 0; i < amount; i++) {
+	cout << "Enter K for kids, W for women:" << endl;//prompt for the type code
+	cin >> typeCode;
+	
+	typeCode = toupper(typeCode);//make sure the input is uppercase
+	
+	if(typeCode == 'K')
+	{
+		numberKid++;
+		type = "Kids";
+		cout << "Enter 1 for Cut, Enter 2 for Cut & Wash" << endl;//prompt the user for the menu code
+		cin >> menuCode;
+		
+		switch(menuCode) {
+			case 1:
+				menu = "Cut";
+				price = 15;
+				totalDiscount = (price * DISCOUNTKID);//calculation process
+				netPrice = price - totalDiscount;
+				displayDetail();//function call
+				break;
+			case 2:
+				menu = "Cut & Wash";
+				price = 20;
+				totalDiscount = (price * DISCOUNTKID);//calculation process
+				netPrice = price - totalDiscount;
+				displayDetail();//function call
+				break;
+			default:
+				cout << "Invalid Input! Enter 1 or 2 only." << endl;//print if the input is invalid 
+				cout << "\n";
+				break;
+		}
+		totalSalesKid += netPrice;
+		number++;
+	}
+	else if(typeCode == 'W')
+	{
+		numberWomen++;
+		type = "Women";
+		cout << "Enter 1 for Cut, Enter 2 for Cut & Wash" << endl;//prompt the user for the menu code
+		cin >> menuCode;
+		
+		switch(menuCode) {
+			case 1:
+				menu = "Cut";
+				price = 20;
+				totalDiscount = (price * DISCOUNTWOMEN);//calculation process
+				netPrice = price - totalDiscount;
+				displayDetail();//function call
+				break;
+			case 2:
+				menu = "Cut & Wash";	
+				price = 30;
+				totalDiscount = (price * DISCOUNTWOMEN);//calculation process
+				netPrice = price - totalDiscount;
+				displayDetail();//function call
+				break;
+			default:
+				cout << "Invalid Input! Enter 1 or 2 only." << endl;//print if the input is invalid 
+				cout << "\n";
+				break;
+		}
+		totalSalesWomen += netPrice;
+		number++;
+	}
+	else 
+	{
+		cout << "Invalid Input! Please enter the correct code." << endl;//print if the input is invalid 
+		cout << "\n";
+	}
+	}	//display the details 
+	cout << "************TRANSACTION DETAILS************" << endl;
+	cout << "Number of customer: Kids:" << numberKid << " Women:" << numberWomen << "" << endl;
+	cout << "Total sales: Kids:RM " << fixed << setprecision(2) << totalSalesKid << " Women:RM " << fixed << setprecision(2) << totalSalesWomen << "" << endl;
+	cout << "Total sales (Overall):RM " << fixed << setprecision(2) << (totalSalesKid + totalSalesWomen);
+		
+	return 0;//return statement
+}
+//function to display the necessary info
+void displayDetail() {
+		cout << "\n";
+		cout << "**Hijab ML Beauty and Saloon**" << endl;
+		cout << "CUSTOMER " << number << endl;
+		cout << "Type: " << type << endl;
+		cout << "Menu: " << menu << endl;
+		cout << "Net price: " << fixed << setprecision(2) << netPrice << endl;
+		cout << "\n";
+}
