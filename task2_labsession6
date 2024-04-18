@@ -1,0 +1,113 @@
+/*
+	NAME: AFIZUDIN FIRDAUS BIN ZAFFRI
+	ID: AM2311015166
+	DATE: 18/4/24
+	PROGRAM PURPOSE: TO RECORD INFORMATION REGARDING 10 CUSTOMERS BANK ACCOUNTS
+*/
+//Preprocessor directive
+#include <iostream>
+#include <cctype>
+#include <limits>
+#include <iomanip>
+using namespace std;
+//variables declaration
+int number = 1;
+string name, accountNo, accountType;
+double balance;
+//function prototype
+void display();
+//main function
+int main() {
+	//declaration of variables and constants
+	char choice, choiceToProceed = 'Y';
+	int numberSavings = 0, numberCurrent = 0, numberMinSavings = 0, numberMinCurrent = 0;
+	const float INTERESTSAVINGS = 0.04, INTERESTCURRENT1 = 0.03, INTERESTCURRENT2 = 0.05;
+	//for loop 10 times
+	for(int i = 0; i < 10; i++) {
+	//prompt the user for details
+	cout << "Enter the name:" << endl;
+	getline(cin, name);
+	cout << "Enter the account number:" << endl;
+	getline(cin, accountNo);
+	cout << "Press (S) for Savings account, Press (C) for current account:" << endl;
+	cin >> choice;
+	
+	choice = toupper(choice);//make sure the input is uppercase
+	
+	if(choice == 'S') //if user pick savings account
+	{
+		cout << "Enter the current balance (RM):" << endl;//prompt for balance
+		cin >> balance;
+		cin.clear();
+		cin.ignore(numeric_limits<streamsize>::max(), '\n');//clear input buffer
+		
+		numberSavings++;
+		accountType = "Savings";
+		if(balance < 500 && balance >= 10)//if balance does not reach the min value 
+		{
+			balance = balance - 10;
+			numberMinSavings++;
+		}
+		else if(balance < 10)//if balance does not make sense mathematically
+			cout << "Invalid input! The balance must be at least RM10.00" << endl;
+		else//if balance do reach the min value 
+			balance = (balance * INTERESTSAVINGS) + balance;
+			
+		display();//function call
+	}
+	else if(choice == 'C') //if user pick current account 
+	{
+		cout << "Enter the current balance (RM):" << endl;//prompt for balance 
+		cin >> balance;
+		cin.clear();
+		cin.ignore(numeric_limits<streamsize>::max(), '\n');//clear input buffer
+		
+		numberCurrent++;
+		accountType = "Current";
+		if(balance < 25)//if balance does not make sense mathematically
+			cout << "Invalid Input! The balance must be at least RM25.00" << endl;
+		else if(balance < 1000 && balance >= 25)//if balance does not reach min vakue 
+		{
+			balance = balance - 25;
+			numberMinCurrent++;
+		}
+		else if(balance >= 1000 && balance < 5000)//if it does reach 5000
+			balance = (balance * INTERESTCURRENT1) + balance;
+		else//if its more than 5000
+			balance = (balance * INTERESTCURRENT2) + balance;
+			
+		display();//function call
+	}
+	else//if input is wrong
+		cout << "Invalid Input! Please enter (S) or (C) only." << endl;
+	//prompt if the user wants to continue 
+	cout << "Do you want to continue?" << endl;
+	cout << "(Y) for Yes, Any keys if No" << endl;
+	cin >> choiceToProceed;
+	cin.clear();
+	cin.ignore(numeric_limits<streamsize>::max(), '\n');
+	
+	choiceToProceed = toupper(choiceToProceed);
+	
+	if(choiceToProceed == 'Y')//continue if user input yes
+		continue;
+	else//if user said no
+		i = 10;
+}	//display other necessary infos
+	cout << "***TRANSACTION DETAILS***" << endl;
+	cout << "Number of customer: Savings:" << numberSavings << " Current:" << numberCurrent <<"" << endl;
+	cout << "Number of customer (Below minimum): Savings:" << numberMinSavings << " Current:" << numberMinCurrent <<"" << endl;
+
+	return 0;//return statement
+}
+//display all the necessary info
+void display() {
+	cout << "\n";
+	cout << "Customer " << number << endl;
+	cout << "Name:" << name << endl;
+	cout << "Account no:" << accountNo << endl;
+	cout << "Account type:" << accountType << endl;
+	cout << "Current balance (RM):" << fixed << setprecision(2) << balance << endl;
+	cout << "\n";
+	number++;
+}
