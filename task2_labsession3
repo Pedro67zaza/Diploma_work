@@ -1,0 +1,22 @@
+/*
+	NAME: AFIZUDIN FIRDAUS BIN ZAFFRI
+	ID: AM2311015166
+	DATE: 18/4/2024
+	PROGRAM PURPOSE: TO CALCULATE AND DISPLAY THE VELOCITY OF THE BALOON WHEN THE OBJECT IS DROPPED 
+*/
+//Preprocessor directive 
+#include <iostream>
+#include <math.h>
+using namespace std;
+//main function 
+int main() {
+	//declaration of variables
+	float acceleration = 0.5, distanceFromGround = 300;
+	double v;
+	//calculate the velocity 
+	v = sqrt(2 * acceleration * pow(distanceFromGround, 2));
+	//display the velocity 
+	cout << "Velocity of the baloon when the object is dropped is: " << v << " m/s" << endl;
+	
+	return 0;//return statement 
+}//end of main 
